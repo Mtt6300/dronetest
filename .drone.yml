@@ -52,31 +52,31 @@ volumes:
   host:
     path: /home/mahdi/.kube/
 
-# ---
+---
 
-# name: production
-# kind: pipeline
-# type: kubernetes
+name: production
+kind: pipeline
+type: kubernetes
 
-# trigger:
-#   branches:
-#     - master
-#   event:
-#     - promote
+trigger:
+  branches:
+    - master
+  event:
+    - promote
 
-# steps:
-# - name: deploy production
-#   image: dtzar/helm-kubectl:3.2.4
-#   volumes:
-#     - name: config
-#       path: /home/mahdi/.kube/
-#   environment:
-#     KUBECONFIG: /home/mahdi/.kube/config
-#   commands:
-#     - ls
-#     - echo "deploy production"
+steps:
+- name: deploy production
+  image: dtzar/helm-kubectl:3.2.4
+  volumes:
+    - name: config
+      path: /home/mahdi/.kube/
+  environment:
+    KUBECONFIG: /home/mahdi/.kube/config
+  commands:
+    - ls
+    - echo "deploy production"
 
-# volumes:
-# - name: config
-#   host:
-#     path: /home/mahdi/.kube/    
+volumes:
+- name: config
+  host:
+    path: /home/mahdi/.kube/    
