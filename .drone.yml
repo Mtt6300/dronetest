@@ -41,6 +41,7 @@ steps:
     KUBECONFIG: /home/mahdi/.kube/config
   commands:
     - echo "deploy demo"
+    - echo kubectl get ns
 
 
 volumes:
