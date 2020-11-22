@@ -1,0 +1,81 @@
+name: default
+kind: pipeline
+type: kubernetes
+
+trigger:
+  branches:
+    - master
+  event:
+    - push
+
+
+steps:
+
+- name: alpine2
+  image: alpine:latest
+  # volumes:
+  #   - name: config
+  #     path: $HOME_PATH/.kube/  
+  commands:
+    - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
+    - env
+    - pwd
+    - mkdir salam
+    - whoami
+
+- name: "release build"
+  image: docker:stable-dind
+  volumes:
+    - name: docker
+      path: /var/run/
+  commands:
+    - ls
+    - docker image ls
+
+- name: "deploy demo"
+  image: dtzar/helm-kubectl:3.4.0
+  volumes:
+    - name: config
+      path: /home/mahdi/.kube/
+  environment:
+    KUBECONFIG: /home/mahdi/.kube/config
+  commands:
+    - echo "deploy demo"
+
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/
+- name: config
+  host:
+    path: /home/mahdi/.kube/
+
+# ---
+
+# name: production
+# kind: pipeline
+# type: kubernetes
+
+# trigger:
+#   branches:
+#     - master
+#   event:
+#     - promote
+
+# steps:
+# - name: deploy production
+#   image: dtzar/helm-kubectl:3.2.4
+#   volumes:
+#     - name: config
+#       path: /home/mahdi/.kube/
+#   environment:
+#     KUBECONFIG: /home/mahdi/.kube/config
+#   commands:
+#     - ls
+#     - echo "deploy production"
+
+# volumes:
+# - name: config
+#   host:
+#     path: /home/mahdi/.kube/    
