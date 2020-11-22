@@ -62,11 +62,12 @@ trigger:
   branches:
     - master
   event:
-    - promote
+    - test
+    # - promote
 
 steps:
 - name: deploy production
-  image: dtzar/helm-kubectl:3.2.4
+  image: dtzar/helm-kubectl:3.4.0
   volumes:
     - name: config
       path: /home/mahdi/.kube/
