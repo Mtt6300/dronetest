@@ -21,7 +21,7 @@ steps:
     - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
     - env
     - pwd
-    - echo ${KUBE_PATH}
+    # - echo ${KUBE_PATH}
 
 - name: "release build"
   image: docker:stable-dind
@@ -34,11 +34,16 @@ steps:
 
 - name: "deploy demo"
   image: dtzar/helm-kubectl:3.4.0
+
+
+  
   volumes:
     - name: config
       path: /home/mahdi/.kube/
   environment:
-    KUBECONFIG: /home/mahdi/.kube/config
+    KUBE_PATH:
+      from_secret: KUBE_PATH
+    KUBECONFIG: ${{KUBE_PATH}}config
   commands:
     - echo "deploy demo"
     - kubectl get ns
