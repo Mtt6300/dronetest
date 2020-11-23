@@ -16,6 +16,7 @@ steps:
     image: pelotech/drone-helm3
     settings:
       helm_command: upgrade
+      add_repos: https://kubernetes-charts.storage.googleapis.com
       chart: stable/docker-registry
       namespace: drone-test
       release: docker-registry
