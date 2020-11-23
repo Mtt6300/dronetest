@@ -16,7 +16,7 @@ steps:
     - name: docker
       path: /var/run/
   commands:
-    - docker build -t simpleapp_drone:latest
+    - docker build -t simpleapp_drone:latest .
 
 
 
