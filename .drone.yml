@@ -39,25 +39,26 @@ steps:
 
 
 
-  # - name: deploy
-  #   image: pelotech/drone-helm3
+  - name: deploy
+    image: pelotech/drone-helm3
 
-  #   volumes:
-  #     - name: manifestPath
-  #       path: /home/mahdi/manifest/simpleapp_drone/
+    volumes:
+      - name: manifestPath
+        path: /home/mahdi/manifest/simpleapp_drone/
 
-  #   settings:
-  #     helm_command: upgrade
-  #     chart: /home/mahdi/manifest/simpleapp_drone/simpleapp
-  #     namespace: drone-test
-  #     release: simpleapp
-  #     kube_service_account: drone-ci-ath
-  #     api_server:
-  #       from_secret: prod_api_server
-  #     kubernetes_token:
-  #       from_secret: prod_kubernetes_token
-  #     kube_certificate:
-  #       from_secret: prod_kube_certificate
+    settings:
+      helm_command: upgrade
+      # chart: /home/mahdi/manifest/simpleapp_drone/simpleapp
+      chart: /home/mahdi/manifest/simpleapp_drone/simpleapp-$DRONE_COMMIT_SHORT_SHA.tgz
+      namespace: drone-test
+      release: simpleapp
+      kube_service_account: drone-ci-ath
+      api_server:
+        from_secret: prod_api_server
+      kubernetes_token:
+        from_secret: prod_kubernetes_token
+      kube_certificate:
+        from_secret: prod_kube_certificate
 
 
 
