@@ -25,7 +25,7 @@ steps:
     image: pelotech/drone-helm3
     settings:
       helm_command: upgrade
-      chart: /home/mahdi/manifest/simpleapp_drone/simpleapp
+      chart: /home/mahdi/manifest/simpleapp_drone/
       namespace: drone-test
       release: release
       kube_service_account: drone-ci-ath
