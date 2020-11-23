@@ -13,15 +13,15 @@ steps:
 
 - name: alpine2
   image: alpine:latest
-  # volumes:
-  #   - name: config
-  #     path: $HOME_PATH/.kube/  
+  environment:
+    PASSWORD:
+      from_secret: KUBE_PATH
+  
   commands:
     - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
     - env
     - pwd
-    - mkdir salam
-    - whoami
+    - echo $KUBE_PATH
 
 - name: "release build"
   image: docker:stable-dind
@@ -81,3 +81,7 @@ volumes:
 - name: config
   host:
     path: /home/mahdi/.kube/    
+
+
+
+# https://discourse.drone.io/t/problems-with-secrets/3286    
