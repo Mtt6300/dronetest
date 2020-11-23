@@ -60,7 +60,9 @@ volumes:
   host:
     path: /var/run/
 - name: config
-  secrets: [ KUBE_PATH ]
+  environment:
+    KUBE_PATH:
+      from_secret: KUBE_PATH
   host:
     # path: /home/mahdi/.kube/
     path: ${KUBE_PATH}
