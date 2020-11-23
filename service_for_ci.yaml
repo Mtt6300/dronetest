@@ -1,0 +1,34 @@
+
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: drone-ci-ath
+automountServiceAccountToken: false
+
+---
+
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  # namespace: default
+  name: drone-ci-ath
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: [pods, deployment, services , secrets, ingress]
+  verbs: ["get", "list"]
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: drone-ci-ath
+  # namespace: default
+subjects:
+- kind: ServiceAccount
+  name: drone-ci-ath
+  # namespace: default
+roleRef:
+  kind: Role
+  name: drone-ci-ath
+  apiGroup: rbac.authorization.k8s.io  

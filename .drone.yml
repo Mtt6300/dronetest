@@ -19,7 +19,7 @@ steps:
       chart: stable/docker-registry
       namespace: drone-test
       release: docker-registry
-      kube_service_account: default-token-mwxzr
+      kube_service_account: drone-ci-ath
       api_server:
         from_secret: prod_api_server
       kubernetes_token:
