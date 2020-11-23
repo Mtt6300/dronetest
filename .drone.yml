@@ -16,8 +16,8 @@ steps:
     image: pelotech/drone-helm3
     settings:
       helm_command: upgrade
-      add_repos: "https://kubernetes-charts.storage.googleapis.com"
-      chart: stable/docker-registry
+      add_repos: "https://charts.bitnami.com/bitnami"
+      chart: bitnami/nginx
       namespace: drone-test
       release: docker-registry
       kube_service_account: drone-ci-ath
