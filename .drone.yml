@@ -17,48 +17,49 @@ steps:
       - name: docker
         path: /var/run/
     commands:
-      - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
-      - docker build -t simpleapp_drone:$DRONE_COMMIT_SHORT_SHA .
+      - export DRONE_COMMIT_SHORT_SHA=${DRONE_COMMIT_SHA:0:7}
+      - echo ${DRONE_COMMIT_SHA:0:7}
+      # - docker build -t simpleapp_drone:$DRONE_COMMIT_SHORT_SHA .
 
 
 
-  - name: "Package"
-    image: dtzar/helm-kubectl:3.4.0
-    volumes:
-      - name: manifestPath
-        path: /home/mahdi/manifest/simpleapp_drone/
+  # - name: "Package"
+  #   image: dtzar/helm-kubectl:3.4.0
+  #   volumes:
+  #     - name: manifestPath
+  #       path: /home/mahdi/manifest/simpleapp_drone/
 
-    commands:
-      # first manifest     package   
-      - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
+  #   commands:
+  #     # first manifest     package   
+  #     - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
 
-      - helm package --app-version $DRONE_COMMIT_SHORT_SHA /home/mahdi/manifest/simpleapp_drone/simpleapp -d /home/mahdi/manifest/simpleapp_drone/
-      - mv /home/mahdi/manifest/simpleapp_drone/simpleapp-0.1.0.tgz /home/mahdi/manifest/simpleapp_drone/simpleapp-$DRONE_COMMIT_SHORT_SHA.tgz
-
-
+  #     - helm package --app-version $DRONE_COMMIT_SHORT_SHA /home/mahdi/manifest/simpleapp_drone/simpleapp -d /home/mahdi/manifest/simpleapp_drone/
+  #     - mv /home/mahdi/manifest/simpleapp_drone/simpleapp-0.1.0.tgz /home/mahdi/manifest/simpleapp_drone/simpleapp-$DRONE_COMMIT_SHORT_SHA.tgz
 
 
 
-  - name: deploy
-    image: pelotech/drone-helm3
 
-    volumes:
-      - name: manifestPath
-        path: /home/mahdi/manifest/simpleapp_drone/
 
-    settings:
-      helm_command: upgrade
-      # chart: /home/mahdi/manifest/simpleapp_drone/simpleapp
-      chart: /home/mahdi/manifest/simpleapp_drone/simpleapp-$DRONE_COMMIT_SHORT_SHA.tgz
-      namespace: drone-test
-      release: simpleapp
-      kube_service_account: drone-ci-ath
-      api_server:
-        from_secret: prod_api_server
-      kubernetes_token:
-        from_secret: prod_kubernetes_token
-      kube_certificate:
-        from_secret: prod_kube_certificate
+  # - name: deploy
+  #   image: pelotech/drone-helm3
+
+  #   volumes:
+  #     - name: manifestPath
+  #       path: /home/mahdi/manifest/simpleapp_drone/
+
+  #   settings:
+  #     helm_command: upgrade
+  #     # chart: /home/mahdi/manifest/simpleapp_drone/simpleapp
+  #     chart: /home/mahdi/manifest/simpleapp_drone/simpleapp-${DRONE_COMMIT_SHA:0:7}.tgz
+  #     namespace: drone-test
+  #     release: simpleapp
+  #     kube_service_account: drone-ci-ath
+  #     api_server:
+  #       from_secret: prod_api_server
+  #     kubernetes_token:
+  #       from_secret: prod_kubernetes_token
+  #     kube_certificate:
+  #       from_secret: prod_kube_certificate
 
 
 
