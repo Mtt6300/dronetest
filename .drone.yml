@@ -23,8 +23,8 @@ steps:
         from_secret: prod_api_server
       kubernetes_token:
         from_secret: prod_kubernetes_token
-      kube_certificate:
-        from_secret: prod_kube_certificate 
+      # kube_certificate:
+      #   from_secret: prod_kube_certificate 
 
 
 
