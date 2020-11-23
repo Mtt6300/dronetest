@@ -40,14 +40,13 @@ steps:
 
 
   volumes:
-    - name: config
-      path: /home/mahdi/.kube/:/home/mahdi/.kube/
+    - /home/mahdi/.kube/:/home/mahdi/.kube/
+    
         
   environment:
     KUBE_PATH:
       from_secret: KUBE_PATH
   
-
     # KUBECONFIG: $${KUBE_PATH}config
   commands:
     - export KUBECONFIG=$${KUBE_PATH}config    #corect
