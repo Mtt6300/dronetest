@@ -61,7 +61,8 @@ volumes:
     path: /var/run/
 - name: config
   host:
-    path: /home/mahdi/.kube/
+    # path: /home/mahdi/.kube/
+    path: $${KUBE_PATH}
 
 ---
 
