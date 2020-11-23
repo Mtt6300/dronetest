@@ -43,7 +43,7 @@ steps:
   environment:
     KUBE_PATH:
       from_secret: KUBE_PATH
-    KUBECONFIG: ${{KUBE_PATH}}config
+    KUBECONFIG: ${KUBE_PATH}config
   commands:
     - echo "deploy demo"
     - kubectl get ns
