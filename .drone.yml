@@ -10,27 +10,36 @@ trigger:
 
 
 steps:
-
-
-  - name: deploy
-    image: pelotech/drone-helm3
-    settings:
-      helm_command: upgrade
-      add_repos:
-        - https://kubernetes-charts.storage.googleapis.com/
-      chart: stable/docker-registry
-      namespace: drone-test
-      release: docker-registry
-      kube_service_account: drone-ci-ath
-      api_server:
-        from_secret: prod_api_server
-      kubernetes_token:
-        from_secret: prod_kubernetes_token
-      kube_certificate:
-        from_secret: prod_kube_certificate 
+- name: "build"
+  image: docker:stable-dind
+  volumes:
+    - name: docker
+      path: /var/run/
+  commands:
+    - docker build -t simpleapp_drone:latest
 
 
 
+  # - name: deploy
+  #   image: pelotech/drone-helm3
+  #   settings:
+  #     helm_command: upgrade
+  #     chart: stable/docker-registry
+  #     namespace: drone-test
+  #     release: docker-registry
+  #     kube_service_account: drone-ci-ath
+  #     api_server:
+  #       from_secret: prod_api_server
+  #     kubernetes_token:
+  #       from_secret: prod_kubernetes_token
+  #     kube_certificate:
+  #       from_secret: prod_kube_certificate
+
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/
 
 
 
