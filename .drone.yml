@@ -30,7 +30,7 @@ steps:
 
     settings:
       helm_command: upgrade
-      chart: /home/mahdi/manifest/simpleapp_drone/
+      chart: /home/mahdi/manifest/simpleapp_drone/simpleapp
       namespace: drone-test
       release: simpleapp
       kube_service_account: drone-ci-ath
