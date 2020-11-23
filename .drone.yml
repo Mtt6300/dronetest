@@ -8,18 +8,84 @@ trigger:
   event:
     - push
 
+
 steps:
 
-- name: "deploy demo"
-  image: dtzar/helm-kubectl:3.4.0
-  volumes:
-    - /home/mahdi/.kube/:/mamad/shit/fuck/yea/no/llllll/mmm/kkkk/
+# - name: alpine2
+#   image: alpine:latest
+#   environment:
+#     KUBE_PATH:
+#       from_secret: KUBE_PATH
+  
+#   commands:
+#     - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
+#     - env
+#     - pwd
+#     # - echo ${KUBE_PATH}
 
-       
-  commands:
-    - export KUBECONFIG=/mamad/shit/fuck/yea/no/llllll/mmm/kkkk/config    #corect
-    - echo "deploy demo"
-    - kubectl get ns
+# - name: "release build"
+#   image: docker:stable-dind
+#   volumes:
+#     - name: docker
+#       path: /var/run/
+#   commands:
+#     - ls
+#     - docker image ls
+
+
+  - name: deploy
+    image: pelotech/drone-helm3
+    settings:
+      helm_command: upgrade
+      chart: stable/docker-registry
+      namespace: drone-test
+      release: docker-registry
+      api_server: https://kubernetes:443
+      kubernetes_token:
+        from_secret: prod_kubernetes_token
+
+
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/
+
+# - name: config
+#   host:
+#     path: /home/mahdi/.kube/
+#     # path: $${KUBE_PATH}
+
+---
+
+# name: production
+# kind: pipeline
+# type: kubernetes
+
+# trigger:
+#   branches:
+#     - master
+#   event:
+#     - test
+#     # - promote
+
+# steps:
+# - name: deploy production
+#   image: dtzar/helm-kubectl:3.4.0
+#   volumes:
+#     - name: config
+#       path: /home/mahdi/.kube/
+#   environment:
+#     KUBECONFIG: /home/mahdi/.kube/config
+#   commands:
+#     - ls
+#     - echo "deploy production"
+
+# volumes:
+# - name: config
+#   host:
+#     path: /home/mahdi/.kube/    
+
 
 
 # https://discourse.drone.io/t/problems-with-secrets/3286    
