@@ -13,9 +13,11 @@ metadata:
   # namespace: default
   name: drone-ci-ath
 rules:
-- apiGroups: [""] # "" indicates the core API group
+- apiGroups: ["","apps"] # "" indicates the core API group
   resources: [pods, deployments, services , secrets, ingress,serviceaccounts,configmaps]
   verbs:
+  - list
+  - get
   - create
   - delete
   - deletecollection
