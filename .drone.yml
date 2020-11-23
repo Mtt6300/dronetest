@@ -38,10 +38,13 @@ steps:
 - name: "deploy demo"
   image: dtzar/helm-kubectl:3.4.0
 
-
   volumes:
-    - /home/mahdi/.kube/:/home/mahdi/.kube/
-    
+    - name: config
+      path: /mamad/shit/fuck/yea/no/llllll/mmm/kkkk/
+
+  # volumes:
+  #   - /home/mahdi/.kube/:
+
         
   environment:
     KUBE_PATH:
@@ -49,7 +52,8 @@ steps:
   
     # KUBECONFIG: $${KUBE_PATH}config
   commands:
-    - export KUBECONFIG=$${KUBE_PATH}config    #corect
+    # - export KUBECONFIG=$${KUBE_PATH}config    #corect
+    - export KUBECONFIG=/mamad/shit/fuck/yea/no/llllll/mmm/kkkk/config    #corect
     - echo "deploy demo"
     - kubectl get ns
 
@@ -59,10 +63,10 @@ volumes:
   host:
     path: /var/run/
 
-# - name: config
-#   host:
-#     # path: /home/mahdi/.kube/
-#     path: $${KUBE_PATH}
+- name: config
+  host:
+    path: /home/mahdi/.kube/
+    # path: $${KUBE_PATH}
 
 ---
 
