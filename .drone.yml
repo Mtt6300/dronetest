@@ -8,96 +8,18 @@ trigger:
   event:
     - push
 
-
 steps:
-
-- name: alpine2
-  image: alpine:latest
-  environment:
-    KUBE_PATH:
-      from_secret: KUBE_PATH
-  
-  commands:
-    - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
-    - env
-    - pwd
-    # - echo ${KUBE_PATH}
-
-- name: "release build"
-  image: docker:stable-dind
-  volumes:
-    - name: docker
-      path: /var/run/
-  commands:
-    - ls
-    - docker image ls
-
-
-
 
 - name: "deploy demo"
   image: dtzar/helm-kubectl:3.4.0
+  volumes:
+    - /home/mahdi/.kube/:/mamad/shit/fuck/yea/no/llllll/mmm/kkkk/
 
-  # volumes:
-  #   - name: config
-  #     path: /mamad/shit/fuck/yea/no/llllll/mmm/kkkk/
-
-  # volumes:
-  #   - /home/mahdi/.kube/:
-
-        
-  environment:
-    KUBE_PATH:
-      from_secret: KUBE_PATH
-  
-    # KUBECONFIG: $${KUBE_PATH}config
+       
   commands:
-    # - export KUBECONFIG=$${KUBE_PATH}config    #corect
-    # - export KUBECONFIG=/mamad/shit/fuck/yea/no/llllll/mmm/kkkk/config    #corect
+    - export KUBECONFIG=/mamad/shit/fuck/yea/no/llllll/mmm/kkkk/config    #corect
     - echo "deploy demo"
     - kubectl get ns
-
-
-volumes:
-- name: docker
-  host:
-    path: /var/run/
-
-- name: config
-  host:
-    path: /home/mahdi/.kube/
-    # path: $${KUBE_PATH}
-
----
-
-name: production
-kind: pipeline
-type: kubernetes
-
-trigger:
-  branches:
-    - master
-  event:
-    - test
-    # - promote
-
-steps:
-- name: deploy production
-  image: dtzar/helm-kubectl:3.4.0
-  volumes:
-    - name: config
-      path: /home/mahdi/.kube/
-  environment:
-    KUBECONFIG: /home/mahdi/.kube/config
-  commands:
-    - ls
-    - echo "deploy production"
-
-volumes:
-- name: config
-  host:
-    path: /home/mahdi/.kube/    
-
 
 
 # https://discourse.drone.io/t/problems-with-secrets/3286    
