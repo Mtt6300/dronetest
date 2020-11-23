@@ -34,18 +34,18 @@ steps:
 
 - name: "deploy demo"
   image: dtzar/helm-kubectl:3.4.0
+  environment:
+    KUBE_PATH:
+      from_secret: KUBE_PATH
 
 
   
   volumes:
     - name: config
-      path: /home/mahdi/.kube/
-  environment:
-    KUBE_PATH:
-      from_secret: KUBE_PATH
-    KUBECONFIG: ${KUBE_PATH}config
+      path: ${KUBE_PATH}
+    # KUBECONFIG: $${KUBE_PATH}config
   commands:
-    # - export KUBECONFIG=$${KUBE_PATH}config
+    - export KUBECONFIG=$${KUBE_PATH}config    #corect
     - echo "deploy demo"
     - kubectl get ns
 
