@@ -38,12 +38,10 @@ steps:
 - name: "deploy demo"
   image: dtzar/helm-kubectl:3.4.0
 
-  settings:
-    KUBE_PATH:
-      from_secret: KUBE_PATH
-    volumes:
-      - name: config
-        path: ${KUBE_PATH}
+
+  volumes:
+    - name: config
+      path: /home/mahdi/.kube/
         
   environment:
     KUBE_PATH:
@@ -63,7 +61,7 @@ volumes:
     path: /var/run/
 - name: config
   host:
-    path: /home/mahdi/.kube/
+    path: ${KUBE_PATH}
 
 ---
 
