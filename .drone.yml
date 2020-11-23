@@ -41,15 +41,14 @@ steps:
   settings:
     KUBE_PATH:
       from_secret: KUBE_PATH
-
+    volumes:
+      - name: config
+        path: $${KUBE_PATH}
   environment:
     KUBE_PATH:
       from_secret: KUBE_PATH
-
   
-  volumes:
-    - name: config
-      path: $${KUBE_PATH}
+
     # KUBECONFIG: $${KUBE_PATH}config
   commands:
     - export KUBECONFIG=$${KUBE_PATH}config    #corect
