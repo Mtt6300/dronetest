@@ -10,30 +10,32 @@ trigger:
 
 
 steps:
-- name: "build"
-  image: docker:stable-dind
-  volumes:
-    - name: docker
-      path: /var/run/
-  commands:
-    - docker build -t simpleapp_drone:latest .
+
+  # - name: "build"
+  #   image: docker:stable-dind
+  #   volumes:
+  #     - name: docker
+  #       path: /var/run/
+  #   commands:
+  #     - docker build -t simpleapp_drone:latest .
 
 
 
-  # - name: deploy
-  #   image: pelotech/drone-helm3
-  #   settings:
-  #     helm_command: upgrade
-  #     chart: stable/docker-registry
-  #     namespace: drone-test
-  #     release: docker-registry
-  #     kube_service_account: drone-ci-ath
-  #     api_server:
-  #       from_secret: prod_api_server
-  #     kubernetes_token:
-  #       from_secret: prod_kubernetes_token
-  #     kube_certificate:
-  #       from_secret: prod_kube_certificate
+  - name: deploy
+    image: pelotech/drone-helm3
+    settings:
+      helm_command: upgrade
+      chart: /home/mahdi/manifest/simpleapp_drone/simpleapp
+      namespace: drone-test
+      release: release
+      kube_service_account: drone-ci-ath
+      api_server:
+        from_secret: prod_api_server
+      kubernetes_token:
+        from_secret: prod_kubernetes_token
+      kube_certificate:
+        from_secret: prod_kube_certificate
+
 
 
 volumes:
