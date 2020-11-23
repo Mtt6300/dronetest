@@ -46,7 +46,7 @@ steps:
     # KUBECONFIG: ${KUBE_PATH}config
   commands:
     - env
-    - export KUBECONFIG=${KUBE_PATH}config
+    - export KUBECONFIG=$${KUBE_PATH}config
     - echo $KUBECONFIG
     - echo "deploy demo"
     - kubectl get ns
