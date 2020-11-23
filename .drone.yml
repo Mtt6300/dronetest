@@ -49,7 +49,7 @@ steps:
   
   volumes:
     - name: config
-      path: ${KUBE_PATH}
+      path: $${KUBE_PATH}
     # KUBECONFIG: $${KUBE_PATH}config
   commands:
     - export KUBECONFIG=$${KUBE_PATH}config    #corect
