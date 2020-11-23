@@ -21,7 +21,7 @@ steps:
     - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
     - env
     - pwd
-    - echo $${KUBE_PATH}
+    - echo ${KUBE_PATH}
 
 - name: "release build"
   image: docker:stable-dind
