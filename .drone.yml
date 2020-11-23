@@ -32,12 +32,19 @@ steps:
     - ls
     - docker image ls
 
+
+
+
 - name: "deploy demo"
   image: dtzar/helm-kubectl:3.4.0
-  environment:
+
+  settings:
     KUBE_PATH:
       from_secret: KUBE_PATH
 
+  environment:
+    KUBE_PATH:
+      from_secret: KUBE_PATH
 
   
   volumes:
