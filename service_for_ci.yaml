@@ -13,8 +13,8 @@ metadata:
   # namespace: default
   name: drone-ci-ath
 rules:
-- apiGroups: ["","apps"] # "" indicates the core API group
-  resources: [pods, deployments, services , secrets, ingress,serviceaccounts,configmaps]
+- apiGroups: ["","apps","networking.k8s.io"] # "" indicates the core API group
+  resources: [pods, deployments, services , secrets, ingress,serviceaccounts,configmaps,ingresses]
   verbs:
   - list
   - get

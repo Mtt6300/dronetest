@@ -9,6 +9,7 @@ trigger:
     - push
 
 
+
 steps:
 
 # - name: alpine2
@@ -18,7 +19,7 @@ steps:
 #       from_secret: KUBE_PATH
   
 #   commands:
-#     - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
+    # - export DRONE_COMMIT_SHORT_SHA=$(echo $DRONE_COMMIT_SHA | awk '{ printf "%s\n", substr($1,1,8) }')
 #     - env
 #     - pwd
 #     # - echo ${KUBE_PATH}
