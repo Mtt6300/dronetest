@@ -19,7 +19,8 @@ steps:
       chart: stable/docker-registry
       namespace: drone-test
       release: docker-registry
-      api_server: https://kubernetes:443
+      api_server:
+        from_secret: prod_api_server
       kubernetes_token:
         from_secret: prod_kubernetes_token
 
