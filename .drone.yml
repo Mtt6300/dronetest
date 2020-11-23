@@ -65,7 +65,7 @@ volumes:
       from_secret: KUBE_PATH
   host:
     # path: /home/mahdi/.kube/
-    path: ${KUBE_PATH}
+    path: $${KUBE_PATH}
 
 ---
 
