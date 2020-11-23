@@ -23,6 +23,11 @@ steps:
 
   - name: deploy
     image: pelotech/drone-helm3
+
+    volumes:
+      - name: manifestPath
+        path: /home/mahdi/manifest/simpleapp_drone/
+
     settings:
       helm_command: upgrade
       chart: /home/mahdi/manifest/simpleapp_drone/
@@ -43,6 +48,9 @@ volumes:
   host:
     path: /var/run/
 
+- name: manifestPath
+  host:
+    path: /home/mahdi/manifest/simpleapp_drone/   
 
 
 # https://discourse.drone.io/t/problems-with-secrets/3286    
