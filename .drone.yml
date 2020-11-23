@@ -14,7 +14,7 @@ steps:
 - name: alpine2
   image: alpine:latest
   environment:
-    PASSWORD:
+    KUBE_PATH:
       from_secret: KUBE_PATH
   
   commands:
