@@ -41,7 +41,7 @@ steps:
 
   volumes:
     - name: config
-      path: /home/mahdi/.kube/
+      path: /home/mahdi/.kube/:/home/mahdi/.kube/
         
   environment:
     KUBE_PATH:
@@ -59,13 +59,11 @@ volumes:
 - name: docker
   host:
     path: /var/run/
-- name: config
-  environment:
-    KUBE_PATH:
-      from_secret: KUBE_PATH
-  host:
-    # path: /home/mahdi/.kube/
-    path: $${KUBE_PATH}
+
+# - name: config
+#   host:
+#     # path: /home/mahdi/.kube/
+#     path: $${KUBE_PATH}
 
 ---
 
